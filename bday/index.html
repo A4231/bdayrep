@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Happy 16th Birthday Batul!</title>
+  <style>
+    :root {
+      --bg-grad-1: #ffd1dc;
+      --bg-grad-2: #e0c3fc;
+      --primary-color: #ff6b8b;
+      --secondary-color: #8a2be2;
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-family);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: linear-gradient(135deg, var(--bg-grad-1), var(--bg-grad-2));
+      color: #333;
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding: 15px 10px 50px 10px;
+      position: relative;
+    }
+
+    .sparkle {
+      position: absolute;
+      pointer-events: none;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.7;
+      z-index: 0;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) scale(0.5) rotate(0deg); opacity: 0; }
+      50% { opacity: 0.8; }
+      100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    header {
+      margin-top: 15px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      line-height: 1.3;
+      color: var(--primary-color);
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+      margin-bottom: 8px;
+    }
+
+    p.subtitle {
+      font-size: 0.95rem;
+      color: #555;
+      font-weight: 600;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 20px 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+
+    .timer-title {
+      font-size: 1.1rem;
+      color: var(--secondary-color);
+      margin-bottom: 12px;
+      font-weight: bold;
+    }
+
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .time-box {
+      background: #fdfbfb;
+      padding: 8px 10px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      flex: 1;
+      max-width: 75px;
+      border: 1px solid #f0e6f5;
+    }
+
+    .time-num {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: var(--primary-color);
+    }
+
+    .time-label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      color: #777;
+      letter-spacing: 0.5px;
+      margin-top: 2px;
+    }
+
+    .quiz-hero-btn {
+      background: linear-gradient(45deg, #ff6b8b, #8a2be2);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(255, 107, 139, 0.35);
+      margin-top: 15px;
+      display: inline-block;
+      width: 100%;
+      max-width: 320px;
+      line-height: 1.4;
+    }
+
+    /* Sparkly Gallery Button */
+    .sparkly-gallery-btn {
+      background: linear-gradient(135deg, #ff758c, #ff7eb3, #7b2cbf);
+      background-size: 200% 200%;
+      color: white;
+      border: 2px solid #ffffff;
+      padding: 16px 24px;
+      font-size: 1.15rem;
+      font-weight: 800;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(123, 44, 191, 0.4), 0 0 15px rgba(255, 117, 140, 0.6);
+      animation: gradientShift 3s ease infinite, pulseGlow 1.8s infinite alternate;
+      display: inline-block;
+      width: 100%;
+      max-width: 360px;
+      letter-spacing: 0.5px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes pulseGlow {
+      0% { transform: scale(1); box-shadow: 0 8px 20px rgba(123, 44, 191, 0.4); }
+      100% { transform: scale(1.03); box-shadow: 0 12px 30px rgba(255, 117, 140, 0.8); }
+    }
+
+    /* Single-Photo Viewer Modal Architecture */
+    .photo-modal-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(8px);
+      z-index: 2500;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 15px;
+    }
+
+    .photo-modal-overlay.active {
+      display: flex;
+      animation: fadeInModal 0.3s ease-out forwards;
+    }
+
+    .photo-card-container {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 20px 15px;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .photo-modal-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--secondary-color);
+      margin-bottom: 12px;
+      padding: 0 25px;
+    }
+
+    .full-photo-frame {
+      width: 100%;
+      max-height: 55vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f7f4f9;
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 15px;
+      padding: 8px;
+      border: 1px solid #eae0f0;
+    }
+
+    .full-photo-frame img {
+      max-width: 100%;
+      max-height: 50vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .gallery-nav-group {
+      display: flex;
+      gap: 12px;
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    .btn-nav {
+      background: #f0e6f5;
+      color: var(--secondary-color);
+      border: none;
+      padding: 10px 18px;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 0.9rem;
+      flex: 1;
+    }
+
+    .close-photo-btn {
+      position: absolute;
+      top: 10px; right: 15px;
+      background: none; border: none;
+      font-size: 1.5rem; color: #888;
+      cursor: pointer;
+      padding: 5px;
+    }
+
+    /* Cake & Candles Architecture */
+    .cake-container {
+      position: relative;
+      margin: 30px auto 15px auto;
+      width: 190px;
+      height: 110px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .cake-base {
+      width: 190px;
+      height: 45px;
+      background: #f7a8b8;
+      border-radius: 0 0 10px 10px;
+      box-shadow: inset 0 -6px 0 #e8899e;
+    }
+
+    .cake-top {
+      width: 140px;
+      height: 35px;
+      background: #ffffff;
+      border-radius: 10px 10px 0 0;
+      box-shadow: inset 0 -4px 0 #eee;
+      position: relative;
+    }
+
+    .candles-grid {
+      position: absolute;
+      top: -24px;
+      left: 6px;
+      right: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      z-index: 5;
+    }
+
+    .candle {
+      width: 5px;
+      height: 24px;
+      background: repeating-linear-gradient(45deg, #ff4081, #ff4081 3px, #fff 3px, #fff 6px);
+      border-radius: 2px;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .flame {
+      position: absolute;
+      top: -11px;
+      left: -3px;
+      width: 11px;
+      height: 12px;
+      background: #ff9800;
+      border-radius: 50% 50% 20% 20%;
+      box-shadow: 0 0 6px #ffeb3b;
+      animation: flicker 0.6s infinite alternate;
+      transition: opacity 0.3s;
+    }
+
+    .flame.off {
+      opacity: 0;
+    }
+
+    @keyframes flicker {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.15) rotate(2deg); }
+    }
+
+    .dodge-box {
+      position: relative;
+      min-height: 130px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      overflow: hidden;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 20px;
+      position: relative;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      min-height: 50px;
+    }
+
+    .btn-action {
+      padding: 10px 24px;
+      border: none;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: transform 0.15s ease-out;
+    }
+
+    .btn-yes {
+      background: #4caf50;
+      color: white;
+      box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+      z-index: 10;
+    }
+
+    .btn-no {
+      background: #ff5252;
+      color: white;
+      box-shadow: 0 4px 10px rgba(255, 82, 82, 0.3);
+      position: relative;
+      transition: opacity 0.3s ease;
+    }
+
+    .gift-box {
+      font-size: 3.5rem;
+      cursor: pointer;
+      display: inline-block;
+      animation: bounce 2s infinite;
+      margin: 10px 0;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-15px); }
+      60% { transform: translateY(-7px); }
+    }
+
+    .quiz-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(5px);
+      z-index: 1000;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 15px;
+    }
+
+    .quiz-overlay.active { display: flex; }
+
+    .quiz-modal {
+      background: white;
+      max-width: 480px;
+      width: 100%;
+      border-radius: 20px;
+      padding: 20px 15px;
+      text-align: center;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+      position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .quiz-question-title {
+      font-size: 1.1rem;
+      color: var(--secondary-color);
+      margin-bottom: 15px;
+      font-weight: bold;
+      line-height: 1.4;
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .quiz-opt-btn {
+      background: #f7f8fa;
+      border: 1.5px solid #e1e4e8;
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: #333;
+      text-align: left;
+    }
+
+    .close-quiz-btn {
+      position: absolute;
+      top: 10px; right: 15px;
+      background: none; border: none;
+      font-size: 1.4rem; color: #888;
+      padding: 5px;
+    }
+
+    .cat-slap-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 2000;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .cat-slap-overlay.active {
+      display: flex;
+      animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+    }
+
+    @keyframes shake {
+      10%, 90% { transform: translate3d(-4px, 0, 0); }
+      20%, 80% { transform: translate3d(6px, 0, 0); }
+      30%, 50%, 70% { transform: translate3d(-8px, 0, 0); }
+      40%, 60% { transform: translate3d(8px, 0, 0); }
+    }
+
+    .cat-emoji-display {
+      font-size: 4rem;
+      margin-bottom: 10px;
+      animation: bounce 1s infinite;
+    }
+
+    .slap-text {
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: #ff5252;
+      margin-bottom: 8px;
+    }
+
+    .slap-explanation {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      color: #ffe0b2;
+      font-weight: bold;
+    }
+
+    .slap-correct-answer {
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+      color: #ddd;
+    }
+
+    .btn-next-question {
+      background: #ff4081;
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      font-size: 0.95rem;
+      font-weight: bold;
+      border-radius: 25px;
+      cursor: pointer;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.65);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      padding: 15px;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 20px;
+      max-width: 380px;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* Dramatic Sweet Sixteen Popup Styling */
+    .dramatic-modal-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 3000;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 15px;
+    }
+
+    .dramatic-modal-overlay.active {
+      display: flex;
+      animation: fadeInModal 0.3s ease-out forwards;
+    }
+
+    @keyframes fadeInModal {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .dramatic-modal-content {
+      background: linear-gradient(145deg, #1a0033, #330033, #110022);
+      border: 3px solid #ff6b8b;
+      box-shadow: 0 0 40px rgba(255, 107, 139, 0.6), inset 0 0 20px rgba(138, 43, 226, 0.5);
+      border-radius: 30px;
+      padding: 30px 20px;
+      max-width: 440px;
+      width: 100%;
+      text-align: center;
+      color: white;
+      position: relative;
+    }
+
+    .disco-ball {
+      font-size: 3.5rem;
+      margin: 0 auto 10px auto;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle, #fff 10%, #ccc 50%, #444 90%);
+      border-radius: 50%;
+      box-shadow: 0 0 25px #fff, 0 0 50px #8a2be2, 0 0 75px #ff6b8b;
+      animation: spinDisco 2s linear infinite, bounceDisco 1s ease-in-out infinite alternate;
+    }
+
+    @keyframes spinDisco {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes bounceDisco {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(-10px) scale(1.05); }
+    }
+
+    .dramatic-title {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: #ff6b8b;
+      text-shadow: 0 0 10px rgba(255, 107, 139, 0.8);
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+
+    .dramatic-text {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: #fce4ec;
+      margin-bottom: 25px;
+    }
+
+    .btn-dramatic-close {
+      background: linear-gradient(45deg, #ff4081, #ba68c8);
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      font-size: 1.05rem;
+      font-weight: bold;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 5px 20px rgba(255, 64, 129, 0.5);
+      transition: transform 0.2s;
+    }
+
+    .btn-dramatic-close:hover {
+      transform: scale(1.05);
+    }
+
+    /* Cat & Sandals Parade Animation */
+    .parade-container {
+      position: fixed;
+      bottom: 20px;
+      left: -150px;
+      white-space: nowrap;
+      z-index: 4000;
+      pointer-events: none;
+      display: none;
+    }
+
+    .parade-container.active {
+      display: block;
+      animation: marchAcross 7s linear forwards;
+    }
+
+    @keyframes marchAcross {
+      0% { left: -200px; transform: scale(0.8); }
+      50% { transform: scale(1.1) translateY(-15px); }
+      100% { left: 105vw; transform: scale(0.9); }
+    }
+
+    .parade-item {
+      font-size: 3.2rem;
+      display: inline-block;
+      margin-right: 25px;
+      animation: bounce 0.4s infinite alternate;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="sparkle-container"></div>
+
+  <!-- Cat & Sandals Parade Element -->
+  <div class="parade-container" id="paradeContainer">
+    <span class="parade-item">🐱</span>
+    <span class="parade-item">🩴</span>
+    <span class="parade-item">🐾</span>
+    <span class="parade-item">🐱</span>
+    <span class="parade-item">🩴</span>
+    <span class="parade-item">🎉</span>
+    <span class="parade-item">🐱</span>
+    <span class="parade-item">🩴</span>
+  </div>
+
+  <div class="container">
+    <header>
+      <h1>🎉 Happy Birthday Batul! 🎂</h1>
+      <p class="subtitle">Turning 16 on November 15, 2026! ✨</p>
+    </header>
+
+    <!-- Countdown Timer Card -->
+    <div class="card">
+      <div class="timer-title" id="timerTitle">⏰ The clock is ticking... November 15, 2026! ⏳</div>
+      <div class="countdown" id="countdownBox">
+        <div class="time-box"><div class="time-num" id="days">00</div><div class="time-label">Days</div></div>
+        <div class="time-box"><div class="time-num" id="hours">00</div><div class="time-label">Hours</div></div>
+        <div class="time-box"><div class="time-num" id="mins">00</div><div class="time-label">Mins</div></div>
+        <div class="time-box"><div class="time-num" id="secs">00</div><div class="time-label">Secs</div></div>
+      </div>
+      <button class="quiz-hero-btn" onclick="openQuiz()">are you a batul bhokto ? test yourself by clicking me</button>
+    </div>
+
+    <!-- Sparkly Gallery Button Section -->
+    <div class="card">
+      <button class="sparkly-gallery-btn" onclick="openPhotoModal(0)">✨ batul gallery (batuls iconic pics) 📸✨</button>
+    </div>
+
+    <!-- Blow Candles Section -->
+    <div class="card">
+      <h2 style="font-size: 1.2rem; color: var(--secondary-color);">🕯️ Blow Out Batul's 16 Candles! 🎂</h2>
+      <p style="font-size: 0.8rem; color: #666; margin-top: 4px;">Tap every flame to extinguish them all!</p>
+      <div class="cake-container">
+        <div class="cake-top">
+          <div class="candles-grid" id="candlesGrid"></div>
+        </div>
+        <div class="cake-base"></div>
+      </div>
+      <p id="candleStatus" style="font-weight: bold; color: var(--primary-color); font-size: 0.95rem; margin-top: 8px;">16 candles remaining!</p>
+    </div>
+
+    <!-- Dodging Button Section -->
+    <div class="card dodge-box">
+      <h2 style="font-size: 1.1rem; color: var(--secondary-color);">Are you officially ready to turn 16, Batul? 🤔</h2>
+      <div class="btn-group" id="btnGroup">
+        <button class="btn-action btn-yes" onclick="answerYes()">YES! 💖</button>
+        <button class="btn-action btn-no" id="noBtn">NO 😜</button>
+      </div>
+      <p id="noMsg" style="font-size: 0.75rem; color: #888; min-height: 15px; margin-top: 5px;"></p>
+    </div>
+
+    <!-- Secret Gift Box -->
+    <div class="card">
+      <h2 style="font-size: 1.2rem; color: var(--secondary-color);">🎁 Batul's Mystery Birthday Box 📦</h2>
+      <p style="font-size: 0.8rem; color: #666; margin-top: 4px;">Tap to unbox your sweet sixteen surprise!</p>
+      <div class="gift-box" onclick="openGift()">🎁</div>
+    </div>
+  </div>
+
+  <!-- Individual Photo Viewer Modal -->
+  <div class="photo-modal-overlay" id="photoModal">
+    <div class="photo-card-container">
+      <button class="close-photo-btn" onclick="closePhotoModal()">✖</button>
+      <div class="photo-modal-title" id="photoModalTitle">1 bolod maliha😂</div>
+      
+      <div class="full-photo-frame">
+        <img id="fullPhotoImg" src="maliha1.png" alt="Batul Iconic Photo">
+      </div>
+
+      <div class="gallery-nav-group">
+        <button class="btn-nav" onclick="prevPhoto()">⬅ Previous</button>
+        <button class="btn-nav" onclick="nextPhoto()">Next ➔</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dramatic Sweet Sixteen Popup Overlay -->
+  <div class="dramatic-modal-overlay" id="dramaticModal">
+    <div class="dramatic-modal-content">
+      <div class="disco-ball">🪩</div>
+      <div class="dramatic-title">✨ WELCOME TO SWEET SIXTEEN! ✨</div>
+      <div class="dramatic-text">
+        The stars have aligned, the confetti cannons are loaded, and the queen has officially spoken!<br><br>
+        May your 16th year be legendary, iconic, and filled with infinite joy, Battu! 👑💖🥳
+      </div>
+      <button class="btn-dramatic-close" onclick="closeDramaticModal()">Let's Party! 🎉</button>
+    </div>
+  </div>
+
+  <!-- Quiz Overlay -->
+  <div class="quiz-overlay" id="quizOverlay">
+    <div class="quiz-modal">
+      <button class="close-quiz-btn" onclick="closeQuiz()">✖</button>
+      <div id="quizContent"></div>
+    </div>
+  </div>
+
+  <!-- Cat & Sandals Slap Overlay -->
+  <div class="cat-slap-overlay" id="catSlapOverlay">
+    <div class="cat-emoji-display">🐱 🩴</div>
+    <div class="slap-text">😾 TUTU THROWS A SANDAL AT YOU! 🩴</div>
+    <div class="slap-explanation" id="slapExplanation">tmi ashol batul bhokto na</div>
+    <div class="slap-correct-answer" id="slapCorrectAnswer">Correct Answer: ...</div>
+    <button class="btn-next-question" onclick="dismissSlap()">Try Next Question 😼</button>
+  </div>
+
+  <!-- Mystery Gift Modal -->
+  <div class="modal" id="giftModal">
+    <div class="modal-content">
+      <h2 style="color: var(--primary-color); font-size: 1.3rem; margin-bottom: 10px;">🎁 Sweet Sixteen Surprise, Batul! 🎉</h2>
+      <p style="line-height: 1.5; color: #444; font-size: 0.95rem; margin-bottom: 18px;">
+        Happy 16th Birthday, Malililihahahaha! 🥳<br><br>
+        May your 16th year be filled with endless Beli Phul🌺, deep blue skies 🌊, non-stop drama bingeing 🎭, and mountains of spicy food 🔥 followed by chocolate ice cream 🍫!<br><br>
+        Stay iconic, Battu! ✨💖
+      </p>
+      <button class="btn-action btn-yes" onclick="closeGift()">Close ✨</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script>
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    
+    function playBeep(freq = 440, duration = 0.15) {
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + duration);
+    }
+
+    function playSlapSound() {
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.2);
+      gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.2);
+    }
+
+    // Photo Gallery Individual Viewer State
+    const galleryPhotos = [
+      { title: "1 bolod maliha😂", src: "maliha1.png" },
+      { title: "2 baccha maliha😭", src: "maliha2.png" },
+      { title: "3 saaree pora maliha 😝😍", src: "maliha3.png" },
+      { title: "4 hashi deoa Maliha 🤭", src: "maliha4.png" }
+    ];
+
+    let currentPhotoIdx = 0;
+
+    function openPhotoModal(idx = 0) {
+      playBeep(700, 0.1);
+      confetti({ particleCount: 40, spread: 60, origin: { y: 0.6 } });
+      currentPhotoIdx = idx;
+      updatePhotoDisplay();
+      document.getElementById('photoModal').classList.add('active');
+    }
+
+    function closePhotoModal() {
+      playBeep(400, 0.1);
+      document.getElementById('photoModal').classList.remove('active');
+    }
+
+    function updatePhotoDisplay() {
+      const p = galleryPhotos[currentPhotoIdx];
+      document.getElementById('photoModalTitle').innerText = p.title;
+      document.getElementById('fullPhotoImg').src = p.src;
+    }
+
+    function nextPhoto() {
+      playBeep(600, 0.1);
+      currentPhotoIdx = (currentPhotoIdx + 1) % galleryPhotos.length;
+      updatePhotoDisplay();
+    }
+
+    function prevPhoto() {
+      playBeep(500, 0.1);
+      currentPhotoIdx = (currentPhotoIdx - 1 + galleryPhotos.length) % galleryPhotos.length;
+      updatePhotoDisplay();
+    }
+
+    // 7-Second Birthday Song Player using Web Audio API
+    function playBirthdaySong() {
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      
+      const notes = [
+        { freq: 261.63, time: 0.0, duration: 0.4 },
+        { freq: 261.63, time: 0.45, duration: 0.4 },
+        { freq: 293.66, time: 0.9, duration: 0.8 },
+        { freq: 261.63, time: 1.8, duration: 0.8 },
+        { freq: 349.23, time: 2.7, duration: 0.8 },
+        { freq: 329.63, time: 3.6, duration: 1.5 },
+        { freq: 392.00, time: 5.3, duration: 0.4 },
+        { freq: 440.00, time: 5.8, duration: 0.4 },
+        { freq: 523.25, time: 6.3, duration: 0.7 }
+      ];
+
+      notes.forEach(n => {
+        setTimeout(() => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(n.freq, audioCtx.currentTime);
+          gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + n.duration);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + n.duration);
+        }, n.time * 1000);
+      });
+    }
+
+    // Trigger Celebration Show (Confetti explosion + Song)
+    function triggerCelebration() {
+      playBirthdaySong();
+      
+      const duration = 3 * 1000;
+      const animationEnd = Date.now() + duration;
+      const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 3500 };
+
+      function randomInRange(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+
+      const interval = setInterval(function() {
+        const timeLeft = animationEnd - Date.now();
+        if (timeLeft <= 0) {
+          return clearInterval(interval);
+        }
+        const particleCount = 50 * (timeLeft / duration);
+        confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+        confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+      }, 250);
+    }
+
+    // Sparkles
+    const sparkleContainer = document.getElementById('sparkle-container');
+    const icons = ['✨', '🎈', '💖', '⭐', '🌸'];
+    for(let i = 0; i < 20; i++) {
+      const el = document.createElement('div');
+      el.className = 'sparkle';
+      el.innerText = icons[Math.floor(Math.random() * icons.length)];
+      el.style.left = Math.random() * 100 + 'vw';
+      el.style.animationDuration = (Math.random() * 3 + 4) + 's';
+      el.style.fontSize = (Math.random() * 14 + 14) + 'px';
+      sparkleContainer.appendChild(el);
+    }
+
+    // Countdown Timer set to November 15, 2026 with auto-celebration check
+    let celebrationTriggered = false;
+
+    function updateCountdown() {
+      const now = new Date();
+      const targetDate = new Date(`November 15, 2026 00:00:00`);
+
+      const diff = targetDate - now;
+      if (diff <= 0) {
+        document.getElementById('days').innerText = "00";
+        document.getElementById('hours').innerText = "00";
+        document.getElementById('mins').innerText = "00";
+        document.getElementById('secs').innerText = "00";
+        document.getElementById('timerTitle').innerText = "🎉 IT'S BATUL'S 16TH BIRTHDAY! 🎂🥳";
+        
+        if (!celebrationTriggered) {
+          celebrationTriggered = true;
+          triggerCelebration();
+        }
+        return;
+      }
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / (1000 * 60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+
+      document.getElementById('days').innerText = d < 10 ? '0' + d : d;
+      document.getElementById('hours').innerText = h < 10 ? '0' + h : h;
+      document.getElementById('mins').innerText = m < 10 ? '0' + m : m;
+      document.getElementById('secs').innerText = s < 10 ? '0' + s : s;
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // 16 Candles Grid Locked to Cake Top
+    const candlesGrid = document.getElementById('candlesGrid');
+    let candlesLeft = 16;
+
+    for (let i = 0; i < 16; i++) {
+      const candle = document.createElement('div');
+      candle.className = 'candle';
+      const flame = document.createElement('div');
+      flame.className = 'flame';
+      candle.appendChild(flame);
+
+      candle.addEventListener('click', () => {
+        if (!flame.classList.contains('off')) {
+          flame.classList.add('off');
+          candlesLeft--;
+          playBeep(600, 0.1);
+          document.getElementById('candleStatus').innerHTML = 
+            candlesLeft > 0 ? `${candlesLeft} candles remaining!` : "🎉 ALL CANDLES BLOWN OUT! MAKE A WISH, BATUL! 🥳";
+          
+          if (candlesLeft === 0) {
+            confetti({ particleCount: 120, spread: 70, origin: { y: 0.6 } });
+          }
+        }
+      });
+      candlesGrid.appendChild(candle);
+    }
+
+    // Dodging NO Button with Vanishing Feature after 5 tries
+    const noBtn = document.getElementById('noBtn');
+    const noMsg = document.getElementById('noMsg');
+    let noClickCount = 0;
+
+    noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); handleNoAttempt(); });
+    noBtn.addEventListener('click', handleNoAttempt);
+    noBtn.addEventListener('mouseover', moveNoBtn);
+
+    function moveNoBtn() {
+      if (noClickCount >= 5) return;
+      playBeep(300, 0.08);
+      const randomX = (Math.random() * 120 - 60);
+      const randomY = (Math.random() * 50 - 25);
+      noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+    }
+
+    function handleNoAttempt() {
+      noClickCount++;
+      if (noClickCount < 5) {
+        moveNoBtn();
+        noMsg.innerText = `Nice try! (${noClickCount}/5 attempts)`;
+      } else {
+        noBtn.style.opacity = '0';
+        noBtn.style.pointerEvents = 'none';
+        noMsg.innerText = "The NO button gave up and vanished! You HAVE to click YES now! 😂💖";
+        playBeep(200, 0.3);
+      }
+    }
+
+    // Dramatic YES Answer with Massive Confetti Waves & Disco Ball Popup
+    function answerYes() {
+      playBeep(880, 0.3);
+      
+      const duration = 2.5 * 1000;
+      const animationEnd = Date.now() + duration;
+      const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 3500 };
+
+      function randomInRange(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+
+      const interval = setInterval(function() {
+        const timeLeft = animationEnd - Date.now();
+        if (timeLeft <= 0) {
+          return clearInterval(interval);
+        }
+        const particleCount = 50 * (timeLeft / duration);
+        confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+        confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+      }, 250);
+
+      document.getElementById('dramaticModal').classList.add('active');
+    }
+
+    // Trigger Cat Parade & 7-Second Song on "Let's Party!" click
+    function closeDramaticModal() {
+      document.getElementById('dramaticModal').classList.remove('active');
+      
+      playBirthdaySong();
+
+      const parade = document.getElementById('paradeContainer');
+      parade.classList.remove('active');
+      void parade.offsetWidth;
+      parade.classList.add('active');
+
+      confetti({ particleCount: 100, spread: 90, origin: { y: 0.8 } });
+    }
+
+    // Quiz Questions Data
+    const quizData = [
+      {
+        q: "1. 🎨 What color is her absolute favorite?",
+        options: ["💖 Pastel Pink", "🌊 Deep Blue", "🌿 Mint Green", "☀️ Bright Yellow"],
+        correct: 1,
+        correctText: "Deep Blue 🌊"
+      },
+      {
+        q: "2. 🌸 What is her favorite flower?",
+        options: ["🌹 Red Rose", "🌻 Sunflower", "🌺 Beli Phul (Arabian Jasmine)", "🌷 Pink Tulip"],
+        correct: 2,
+        correctText: "Beli Phul (Arabian Jasmine) 🌺"
+      },
+      {
+        q: "3. 🍦 What is her go-to ice cream flavor?",
+        options: ["🍓 Strawberry", "🍫 Chocolate", "🍦 Vanilla", "🥭 Mango"],
+        correct: 1,
+        correctText: "Chocolate 🍫"
+      },
+      {
+        q: "4. 📺 What does she love doing in her free time?",
+        options: ["📚 Studying Chemistry", "🏃‍♀️ Running Marathons", "🎭 Watching Drama", "🎮 Playing Mobile Legends"],
+        correct: 2,
+        correctText: "Watching Drama 🎭"
+      },
+      {
+        q: "5. 🎂 What is the exact birth date of Malililihahahaha?",
+        options: ["📅 2010 Nov 15", "📅 2010 Oct 15", "📅 2009 Nov 15", "📅 2011 Dec 15"],
+        correct: 0,
+        correctText: "2010 Nov 15 📅"
+      },
+      {
+        q: "6. 🌶️ What type of food does she like the most?",
+        options: ["🍰 Sweet & Desserts", "🔥 Jhaal (Spicy)", "🍟 Fast Food Only", "🥗 Mild & Bland"],
+        correct: 1,
+        correctText: "Jhaal (Spicy) 🔥"
+      },
+      {
+        q: "7. 📏 Is she tall?",
+        options: ["🦒 Yes, a literal skyscraper!", "🤏Battuu!", "🌴 Taller than a palm tree", "📐 Exactly 6 feet tall"],
+        correct: 1,
+        correctText: "Battu! 🤏"
+      }
+    ];
+
+    let currentQIndex = 0;
+    let quizScore = 0;
+    let wrongAnswerCount = 0;
+
+    function openQuiz() {
+      currentQIndex = 0;
+      quizScore = 0;
+      wrongAnswerCount = 0;
+      document.getElementById('quizOverlay').classList.add('active');
+      renderQuestion();
+    }
+
+    function closeQuiz() {
+      document.getElementById('quizOverlay').classList.remove('active');
+    }
+
+    function renderQuestion() {
+      const quizContent = document.getElementById('quizContent');
+      if (currentQIndex >= quizData.length) {
+        let resultMsg = "";
+        if (quizScore < 5) {
+          resultMsg = "<h3 style='color: #ff5252; font-size: 1.3rem; margin-bottom: 10px; line-height: 1.4;'>YOU ARE NOT A PROKRITO BATUL BHOKTO</h3>";
+        } else {
+          resultMsg = "<h3 style='color: #4caf50; font-size: 1.3rem; margin-bottom: 10px;'>🎉 PROKRITO BATUL BHOKTO! 🎉</h3>";
+          confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 } });
+        }
+
+        quizContent.innerHTML = `
+          ${resultMsg}
+          <p style="font-size: 1.1rem; margin-bottom: 18px;">You scored <strong>${quizScore}/${quizData.length}</strong> on the quiz!</p>
+          <button class="quiz-hero-btn" onclick="closeQuiz()" style="margin: 0; width: auto;">Done ✨</button>
+        `;
+        return;
+      }
+
+      const q = quizData[currentQIndex];
+      let optsHtml = q.options.map((opt, i) => 
+        `<button class="quiz-opt-btn" onclick="handleAnswer(${i})">${opt}</button>`
+      ).join('');
+
+      quizContent.innerHTML = `
+        <div class="quiz-question-title">${q.q}</div>
+        <div class="quiz-options">${optsHtml}</div>
+        <p style="font-size: 0.75rem; color: #888;">Question ${currentQIndex + 1} of ${quizData.length}</p>
+      `;
+    }
+
+    function handleAnswer(selectedIndex) {
+      const q = quizData[currentQIndex];
+      if (selectedIndex === q.correct) {
+        playBeep(800, 0.15);
+        quizScore++;
+        currentQIndex++;
+        renderQuestion();
+      } else {
+        wrongAnswerCount++;
+        playSlapSound();
+
+        let insultMsg = "tmi ashol batul bhokto na";
+        if (wrongAnswerCount === 2) {
+          insultMsg = "abal abaro bhul korse";
+        } else if (wrongAnswerCount >= 3) {
+          insultMsg = "Bolod bhul ans...BLEHHHHHH..... 😾👅";
+        }
+
+        document.getElementById('slapExplanation').innerText = insultMsg;
+        document.getElementById('slapCorrectAnswer').innerText = "Correct Answer: " + q.correctText;
+        document.getElementById('catSlapOverlay').classList.add('active');
+      }
+    }
+
+    function dismissSlap() {
+      document.getElementById('catSlapOverlay').classList.remove('active');
+      currentQIndex++;
+      renderQuestion();
+    }
+
+    function openGift() {
+      playBeep(523.25, 0.2);
+      confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
+      document.getElementById('giftModal').style.display = 'flex';
+    }
+
+    function closeGift() {
+      document.getElementById('giftModal').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
